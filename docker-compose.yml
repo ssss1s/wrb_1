@@ -1,0 +1,34 @@
+services:
+  web-app:
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./service:/service
+    environment:
+      - DATABASE_HOST=database  # Указание имени сервиса базы данных
+      - DATABASE_NAME=mydatabase  # Имя вашей базы данных
+      - DATABASE_USER=myuser      # Имя пользователя для подключения к БД
+      - DATABASE_PASSWORD=mypassword  # Пароль для пользователя
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
+
+    depends_on:
+      - database
+
+  database:
+    image: mysql:5.7  # Используйте подходящую версию MySQL
+    restart: always
+    environment:
+      MYSQL_DATABASE: mydatabase  # Имя базы данных, которую нужно создать
+      MYSQL_USER: myuser          # Имя пользователя для доступа к БД
+      MYSQL_PASSWORD: mypassword  # Пароль для пользователя
+      MYSQL_ROOT_PASSWORD: rootpassword  # Пароль для root-пользователя
+    ports:
+      - "3306:3306"  # Порт для доступа к MySQL
+    volumes:
+      - db_data:/var/lib/mysql  # Хранение данных БД
+
+volumes:
+  db_data:  # Создание постоянного хранилища для данных БД
