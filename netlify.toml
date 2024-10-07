@@ -1,0 +1,12 @@
+[build]
+  publish = "public"  # путь к каталогу, который вы хотите опубликовать
+  command = "npm run build"  # или другая команда сборки
+
+[[plugins]]
+  package = "netlify-plugin-command-menu"
+
+  [plugins.inputs]
+    repository = "https://github.com/netlify/actions"
+    name = "command-menu"
+    command = ["apt-get update", "apt-get -y install libmysqlclient-dev"]
+
