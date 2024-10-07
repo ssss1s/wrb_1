@@ -9,9 +9,10 @@ RUN apk update && apk add --no-cache \
     mysql-client \
     build-base \
     mysql-dev \
-    bash \
+    python3-dev \
+    bash
 
-RUN pip install -r /temp/requirements.txt
+RUN pip install --no-cache-dir -r /temp/requirements.txt
 
 RUN adduser --disabled-password service-user
 
