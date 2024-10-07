@@ -8,7 +8,7 @@ EXPOSE 8000
 RUN apk update && apk add --no-cache \
     mysql-client \
     build-base \
-    mysql-dev \
+    mariadb-dev \  # Используем mariadb-dev вместо libmariadb-dev
     python3-dev \
     bash
 
