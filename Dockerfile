@@ -5,10 +5,10 @@ COPY service /service
 WORKDIR /service
 EXPOSE 8000
 
+# Установка зависимостей, включая mysql-dev
 RUN apk update && apk add --no-cache \
-    mysql-client \
+    mariadb-dev \  # Это позволит использовать mysql_config
     build-base \
-    mariadb-dev \  # Используем mariadb-dev вместо libmariadb-dev
     python3-dev \
     bash
 
@@ -17,4 +17,3 @@ RUN pip install --no-cache-dir -r /temp/requirements.txt
 RUN adduser --disabled-password service-user
 
 USER service-user
-
