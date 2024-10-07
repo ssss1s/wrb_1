@@ -3,9 +3,13 @@ FROM python:3.9-alpine3.16
 COPY requirements.txt /temp/requirements.txt
 COPY service /service
 WORKDIR /service
-EXPOSE 3000
+EXPOSE 8000
 
-RUN apk add mysql-client build-base mysql-dev
+RUN apk update && apk add --no-cache \
+    mysql-client \
+    build-base \
+    mysql-dev \
+    bash \
 
 RUN pip install -r /temp/requirements.txt
 
